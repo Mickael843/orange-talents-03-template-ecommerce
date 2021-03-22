@@ -1,7 +1,6 @@
 package com.mikkaeru.ecommerce.validator;
 
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
@@ -12,8 +11,11 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
     private Class<?> clazz;
     private String domainAttribute;
 
-    @PersistenceContext
-    private EntityManager entityManager;
+    private final EntityManager entityManager;
+
+    public UniqueValueValidator(EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     @Override
     public void initialize(UniqueValue constraintAnnotation) {
