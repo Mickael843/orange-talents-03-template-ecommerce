@@ -1,9 +1,12 @@
 package com.mikkaeru.ecommerce.model.category;
 
+import com.mikkaeru.ecommerce.model.product.Product;
 import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static org.springframework.util.Assert.isTrue;
@@ -18,13 +21,14 @@ public class Category {
     private String name;
     @ManyToOne
     private Category category;
+    @OneToMany(mappedBy = "category")
+    private List<Product> products = new ArrayList<>();
 
     @Deprecated
     public Category() { }
 
     public Category(@NotBlank String name) {
         isTrue(StringUtils.hasLength(name), "O nome da categoria não pode ser nulo!");
-
         this.name = name;
     }
 

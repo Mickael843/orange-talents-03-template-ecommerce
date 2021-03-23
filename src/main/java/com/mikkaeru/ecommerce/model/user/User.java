@@ -1,18 +1,18 @@
 package com.mikkaeru.ecommerce.model.user;
 
+import com.mikkaeru.ecommerce.model.product.Product;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
 import static org.springframework.util.Assert.isTrue;
@@ -30,6 +30,8 @@ public class User implements UserDetails {
     private String password;
     @Column(nullable = false)
     private OffsetDateTime createAt = OffsetDateTime.now();
+    @OneToMany(mappedBy = "owner")
+    private List<Product> products = new ArrayList<>();
 
     @Deprecated
     public User() { }
