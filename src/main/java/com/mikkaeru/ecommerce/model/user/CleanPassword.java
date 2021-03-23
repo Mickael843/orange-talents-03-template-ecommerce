@@ -1,4 +1,4 @@
-package com.mikkaeru.ecommerce.domain.model;
+package com.mikkaeru.ecommerce.model.user;
 
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

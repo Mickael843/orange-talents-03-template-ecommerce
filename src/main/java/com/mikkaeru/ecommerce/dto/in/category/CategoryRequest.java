@@ -1,6 +1,6 @@
 package com.mikkaeru.ecommerce.dto.in.category;
 
-import com.mikkaeru.ecommerce.domain.model.Category;
+import com.mikkaeru.ecommerce.model.category.Category;
 import com.mikkaeru.ecommerce.repository.category.CategoryRepository;
 import com.mikkaeru.ecommerce.validator.UniqueValue;
 

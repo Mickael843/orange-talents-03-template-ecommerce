@@ -1,4 +1,4 @@
-package com.mikkaeru.ecommerce.domain.model;
+package com.mikkaeru.ecommerce.model.category;
 
 import org.springframework.util.StringUtils;
 

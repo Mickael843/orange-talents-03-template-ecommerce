@@ -1,7 +1,7 @@
 package com.mikkaeru.ecommerce.dto.in.user;
 
-import com.mikkaeru.ecommerce.domain.model.CleanPassword;
-import com.mikkaeru.ecommerce.domain.model.User;
+import com.mikkaeru.ecommerce.model.user.CleanPassword;
+import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.validator.UniqueValue;
 import org.hibernate.validator.constraints.Length;
 
