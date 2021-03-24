@@ -24,6 +24,9 @@ public class Characteristic {
     @ManyToOne(optional = false)
     private Product product;
 
+    @Deprecated
+    public Characteristic() { }
+
     public Characteristic(@NotBlank String name, @NotBlank String description, @NotNull Product product) {
         isTrue(hasLength(name), "O nome da característica não pode estar nulo!");
         isTrue(hasLength(description), "A descrição da característica não pode estar nulo!");

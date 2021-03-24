@@ -8,6 +8,7 @@ import javax.validation.constraints.NotBlank;
 import java.util.ArrayList;
 import java.util.List;
 
+import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.GenerationType.IDENTITY;
 import static org.springframework.util.Assert.isTrue;
 
@@ -21,7 +22,7 @@ public class Category {
     private String name;
     @ManyToOne
     private Category category;
-    @OneToMany(mappedBy = "category")
+    @OneToMany(mappedBy = "category", cascade = MERGE)
     private List<Product> products = new ArrayList<>();
 
     @Deprecated
