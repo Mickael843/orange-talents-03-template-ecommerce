@@ -3,6 +3,7 @@ package com.mikkaeru.ecommerce.model.product;
 import com.mikkaeru.ecommerce.model.category.Category;
 import com.mikkaeru.ecommerce.model.characteristic.Characteristic;
 import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
+import com.mikkaeru.ecommerce.model.product.question.Question;
 import com.mikkaeru.ecommerce.model.user.User;
 import org.hibernate.validator.constraints.Length;
 
@@ -16,7 +17,6 @@ import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.CascadeType.MERGE;
 import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
@@ -33,17 +33,18 @@ public class Product {
     private Integer availableQuantity;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
-    @OneToMany(mappedBy = "product")
-    private List<Characteristic> characteristics;
     @ManyToOne(optional = false)
     private Category category;
     @ManyToOne(optional = false)
     private User owner;
-    @OneToMany(mappedBy = "product", cascade = MERGE)
+    @OneToMany(mappedBy = "product")
     private List<ProductImage> images = new ArrayList<>();
-    @OneToMany(mappedBy = "product", cascade = MERGE)
+    @OneToMany(mappedBy = "product")
     private List<Opinion> opinions = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<Question> questions = new ArrayList<>();
+    @OneToMany(mappedBy = "product")
+    private List<Characteristic> characteristics = new ArrayList<>();
     private OffsetDateTime createAt = OffsetDateTime.now();
 
     @Deprecated
@@ -61,5 +62,9 @@ public class Product {
 
     public boolean isFromUser(User user) {
         return this.owner.equals(user);
+    }
+
+    public User getOwner() {
+        return this.owner;
     }
 }
