@@ -5,6 +5,7 @@ import com.mikkaeru.ecommerce.model.user.User;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.OffsetDateTime;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -20,6 +21,7 @@ public class Question {
     private User loggedUser;
     @ManyToOne(optional = false)
     private Product product;
+    private OffsetDateTime createAt = OffsetDateTime.now();
 
     @Deprecated
     public Question() { }
