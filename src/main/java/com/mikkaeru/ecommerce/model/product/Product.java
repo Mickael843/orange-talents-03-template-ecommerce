@@ -2,6 +2,7 @@ package com.mikkaeru.ecommerce.model.product;
 
 import com.mikkaeru.ecommerce.model.category.Category;
 import com.mikkaeru.ecommerce.model.characteristic.Characteristic;
+import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
 import com.mikkaeru.ecommerce.model.user.User;
 import org.hibernate.validator.constraints.Length;
 
@@ -41,6 +42,8 @@ public class Product {
     private User owner;
     @OneToMany(mappedBy = "product", cascade = MERGE)
     private List<ProductImage> images = new ArrayList<>();
+    @OneToMany(mappedBy = "product", cascade = MERGE)
+    private List<Opinion> opinions = new ArrayList<>();
     private OffsetDateTime createAt = OffsetDateTime.now();
 
     @Deprecated
