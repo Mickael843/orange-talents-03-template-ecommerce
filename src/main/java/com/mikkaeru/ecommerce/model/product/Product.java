@@ -55,4 +55,8 @@ public class Product {
         this.category = category;
         this.owner = owner;
     }
+
+    public boolean isFromUser(User user) {
+        return this.owner.equals(user);
+    }
 }

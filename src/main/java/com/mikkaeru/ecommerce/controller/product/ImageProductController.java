@@ -14,12 +14,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static org.springframework.http.HttpStatus.FORBIDDEN;
 
 @RestController
 @RequestMapping("/products/{id}")
@@ -37,11 +40,15 @@ public class ImageProductController {
 
     @Transactional
     @PostMapping("/images")
-    public ResponseEntity<?> addImageForProduct(@PathVariable Long id, @Valid ImageRequest imageRequest) {
+    public ResponseEntity<?> addImageForProduct(@PathVariable Long id, @Valid ImageRequest imageRequest, @AuthenticationPrincipal User user) {
         Optional<Product> product = productRepository.findById(id);
 
         if (product.isEmpty()) {
             return ResponseEntity.notFound().build();
+        }
+
+        if (!product.get().isFromUser(user)) {
+            throw new ResponseStatusException(FORBIDDEN);
         }
 
         List<String> links = imageService.sendImages(imageRequest.getImages());
