@@ -13,8 +13,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
-import static io.jsonwebtoken.lang.Assert.notNull;
-
 public class ProductRequest {
 
     private final @NotBlank String name;
@@ -48,7 +46,6 @@ public class ProductRequest {
     }
 
     public void setUserAuthenticated(User user) {
-        notNull(user, "O usuário autenticado não pode vir nulo!");
         this.userAuthenticated = user;
     }
 

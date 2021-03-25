@@ -39,4 +39,16 @@ public class Opinion {
         this.product = product;
         this.user = loggedUser;
     }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getDescription() {
+        return description;
+    }
 }

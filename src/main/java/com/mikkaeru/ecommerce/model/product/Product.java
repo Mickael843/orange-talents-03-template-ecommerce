@@ -1,5 +1,9 @@
 package com.mikkaeru.ecommerce.model.product;
 
+import com.mikkaeru.ecommerce.dto.out.characteristic.CharacteristicResponse;
+import com.mikkaeru.ecommerce.dto.out.product.ProductImageResponse;
+import com.mikkaeru.ecommerce.dto.out.product.opinion.OpinionResponse;
+import com.mikkaeru.ecommerce.dto.out.product.question.QuestionResponse;
 import com.mikkaeru.ecommerce.model.category.Category;
 import com.mikkaeru.ecommerce.model.characteristic.Characteristic;
 import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
@@ -16,6 +20,7 @@ import java.math.BigDecimal;
 import java.time.OffsetDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -64,7 +69,43 @@ public class Product {
         return this.owner.equals(user);
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public User getOwner() {
         return this.owner;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public Integer getAvailableQuantity() {
+        return availableQuantity;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public List<QuestionResponse> mapQuestions() {
+        return questions.stream().map(QuestionResponse::new).collect(Collectors.toList());
+    }
+
+    public List<ProductImageResponse> mapImages() {
+        return images.stream().map(ProductImageResponse::new).collect(Collectors.toList());
+    }
+
+    public List<OpinionResponse> mapOpinions() {
+        return opinions.stream().map(OpinionResponse::new).collect(Collectors.toList());
+    }
+
+    public List<CharacteristicResponse> mapCharacteristics() {
+        return characteristics.stream().map(CharacteristicResponse::new).collect(Collectors.toList());
     }
 }

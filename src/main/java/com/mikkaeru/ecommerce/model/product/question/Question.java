@@ -31,4 +31,8 @@ public class Question {
         this.loggedUser = loggedUser;
         this.product = product;
     }
+
+    public String getTitle() {
+        return title;
+    }
 }

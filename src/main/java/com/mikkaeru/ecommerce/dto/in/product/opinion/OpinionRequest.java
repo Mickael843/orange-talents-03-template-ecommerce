@@ -13,8 +13,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.Optional;
 
-import static io.jsonwebtoken.lang.Assert.notNull;
-
 public class OpinionRequest {
 
     private final @Min(1) @Max(5) int rating;
@@ -30,12 +28,10 @@ public class OpinionRequest {
     }
 
     public void setLoggedUser(@NotNull User loggedUser) {
-        notNull(loggedUser, "Usuário logado não pode ser nulo!");
         this.loggedUser = loggedUser;
     }
 
     public void setProductId(long productId) {
-        notNull(productId, "O id do produto não pode ser nulo!");
         this.productId = productId;
     }
 
