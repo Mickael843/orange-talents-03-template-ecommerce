@@ -6,6 +6,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -54,6 +55,20 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         }
 
         Problem problem = new Problem("Campos Inválidos!", status.value(), LocalDateTime.now(), fields);
+        return super.handleExceptionInternal(exception, problem, headers, status, request);
+    }
+
+    @Override
+    protected ResponseEntity<Object> handleBindException(BindException exception, HttpHeaders headers, HttpStatus status, WebRequest request) {
+        var fields = new ArrayList<Problem.Field>();
+
+        for (ObjectError error : exception.getBindingResult().getAllErrors()) {
+            String msg = messageSource.getMessage(error, Locale.getDefault());
+
+            fields.add(new Problem.Field(msg));
+        }
+
+        Problem problem = new Problem("Error", status.value(), LocalDateTime.now(), fields);
         return super.handleExceptionInternal(exception, problem, headers, status, request);
     }
 }

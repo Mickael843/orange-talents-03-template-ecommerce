@@ -108,4 +108,13 @@ public class Product {
     public List<CharacteristicResponse> mapCharacteristics() {
         return characteristics.stream().map(CharacteristicResponse::new).collect(Collectors.toList());
     }
+
+    public boolean removeFromStock(int amount) {
+        if (this.availableQuantity >= amount) {
+            this.availableQuantity -= amount;
+            return true;
+        }
+
+        return false;
+    }
 }

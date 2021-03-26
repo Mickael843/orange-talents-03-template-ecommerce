@@ -29,12 +29,17 @@ public class Problem {
         this.fields = fields;
     }
 
+    @JsonInclude(NON_NULL)
     public static class Field {
-        private final String name;
+        private String name;
         private final String message;
 
         public Field(String name, String message) {
             this.name = name;
+            this.message = message;
+        }
+
+        public Field(String message) {
             this.message = message;
         }
 
