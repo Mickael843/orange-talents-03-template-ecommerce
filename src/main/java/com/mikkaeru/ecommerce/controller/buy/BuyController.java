@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.transaction.Transactional;
@@ -47,21 +46,15 @@ public class BuyController {
 
         if (isRemoved) {
             PaymentGateway gateway = request.getGateway();
+
             Buy newBuy = new Buy(product.get(), request.getAmount(), loggedUser, gateway);
+
             newBuy = buyRepository.save(newBuy);
 
-
-            UriComponents url;
-            if (gateway.equals(PaymentGateway.pagseguro)) {
-                url = builder.path("/pagseguro/{id}").buildAndExpand(newBuy.getId().toString());
-                return ResponseEntity.ok().body("pagseguro.com?returnId="+newBuy.getId()+"&redirectUrl="+url);
-            } else {
-                url = builder.path("/paypal/{id}").buildAndExpand(newBuy.getId().toString());
-                return ResponseEntity.ok().body("paypal.com?buyerId="+newBuy.getId()+"&redirectUrl="+url);
-            }
+            return ResponseEntity.ok(gateway.generateUrl(builder, newBuy));
         }
 
-        BindException stockProblem = new BindException(request, "productBuyRequest");
+        BindException stockProblem = new BindException(request, "request");
         stockProblem.reject(null, "Não foi possível realizar a compra do produto!");
         throw stockProblem;
     }
