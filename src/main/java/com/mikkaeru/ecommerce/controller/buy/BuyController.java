@@ -7,6 +7,8 @@ import com.mikkaeru.ecommerce.model.product.Product;
 import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
 import com.mikkaeru.ecommerce.repository.product.ProductRepository;
+import com.mikkaeru.ecommerce.service.EmailService;
+import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindException;
@@ -24,12 +26,14 @@ import java.util.Optional;
 @RequestMapping("/buy")
 public class BuyController {
 
+    private final EmailService emailService;
     private final BuyRepository buyRepository;
     private final ProductRepository productRepository;
 
     public BuyController(BuyRepository buyRepository, ProductRepository productRepository) {
         this.buyRepository = buyRepository;
         this.productRepository = productRepository;
+        this.emailService = new EmailServiceFakeImpl();
     }
 
     @PostMapping
@@ -47,9 +51,11 @@ public class BuyController {
         if (isRemoved) {
             PaymentGateway gateway = request.getGateway();
 
-            Buy newBuy = new Buy(product.get(), request.getAmount(), loggedUser, gateway);
+            Buy newBuy = new Buy(product.get(), product.get().getPrice(), request.getAmount(), loggedUser, gateway);
 
             newBuy = buyRepository.save(newBuy);
+
+            product.get().sendEmailProductOwner(emailService);
 
             return ResponseEntity.ok(gateway.generateUrl(builder, newBuy));
         }

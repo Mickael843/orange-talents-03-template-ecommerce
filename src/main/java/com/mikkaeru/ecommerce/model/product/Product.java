@@ -9,6 +9,7 @@ import com.mikkaeru.ecommerce.model.characteristic.Characteristic;
 import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
 import com.mikkaeru.ecommerce.model.product.question.Question;
 import com.mikkaeru.ecommerce.model.user.User;
+import com.mikkaeru.ecommerce.service.EmailService;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -116,5 +117,9 @@ public class Product {
         }
 
         return false;
+    }
+
+    public void sendEmailProductOwner(EmailService emailService) {
+        emailService.sendEmail(owner);
     }
 }

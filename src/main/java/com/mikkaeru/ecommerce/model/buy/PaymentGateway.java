@@ -10,10 +10,10 @@ public enum PaymentGateway {
         UriComponents url;
 
         if (this.equals(pagseguro)) {
-            url = builder.path("/pagseguro/{id}").buildAndExpand(newBuy.getId().toString());
+            url = builder.path("/pagseguro/{code}").buildAndExpand(newBuy.getCode().toString());
             return "pagseguro.com?returnId="+newBuy.getId()+"&redirectUrl="+url;
         } else {
-            url = builder.path("/paypal/{id}").buildAndExpand(newBuy.getId().toString());
+            url = builder.path("/paypal/{code}").buildAndExpand(newBuy.getCode().toString());
             return "paypal.com?buyerId="+newBuy.getId()+"&redirectUrl="+url;
         }
     }

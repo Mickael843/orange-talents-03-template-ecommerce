@@ -7,9 +7,9 @@ import javax.validation.constraints.Positive;
 
 public class ProductBuyRequest {
 
-    private @NotNull Long productId;
-    private @NotNull @Positive int amount;
-    private @NotNull PaymentGateway gateway;
+    private final @NotNull Long productId;
+    private final @NotNull @Positive int amount;
+    private final @NotNull PaymentGateway gateway;
 
     public ProductBuyRequest(@NotNull @Positive int amount, @NotNull Long productId, @NotNull PaymentGateway gateway) {
         this.amount = amount;
