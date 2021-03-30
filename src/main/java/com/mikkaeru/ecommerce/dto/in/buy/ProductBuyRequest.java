@@ -1,4 +1,4 @@
-package com.mikkaeru.ecommerce.controller.product;
+package com.mikkaeru.ecommerce.dto.in.buy;
 
 import com.mikkaeru.ecommerce.model.buy.PaymentGateway;
 

@@ -1,6 +1,6 @@
 package com.mikkaeru.ecommerce.controller.buy;
 
-import com.mikkaeru.ecommerce.controller.product.ProductBuyRequest;
+import com.mikkaeru.ecommerce.dto.in.buy.ProductBuyRequest;
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.buy.PaymentGateway;
 import com.mikkaeru.ecommerce.model.product.Product;
