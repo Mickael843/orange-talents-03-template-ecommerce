@@ -1,8 +1,8 @@
 package com.mikkaeru.ecommerce.controller.buy;
 
-import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.dto.in.buy.TransactionPagseguroRequest;
 import com.mikkaeru.ecommerce.dto.in.buy.TransactionPaypalRequest;
+import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
@@ -47,6 +47,6 @@ public class TransactionController {
             return ResponseEntity.notFound().build();
         }
 
-        return processPayment.process(request, buyOptional.get());
+        return processPayment.isProcessed(request, buyOptional.get()) ? ResponseEntity.ok().build() : ResponseEntity.badRequest().build();
     }
 }

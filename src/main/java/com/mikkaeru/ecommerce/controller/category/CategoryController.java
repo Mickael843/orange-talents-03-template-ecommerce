@@ -15,7 +15,7 @@ import javax.validation.Valid;
 @RequestMapping("/categories")
 public class CategoryController {
 
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
 
     public CategoryController(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;

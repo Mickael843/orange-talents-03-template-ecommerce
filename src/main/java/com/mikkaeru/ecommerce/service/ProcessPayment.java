@@ -5,7 +5,6 @@ import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
 import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -23,7 +22,7 @@ public class ProcessPayment {
         this.emailService = new EmailServiceFakeImpl();
     }
 
-    public ResponseEntity<?> process(TransactionRequest request, Buy buy) {
+    public boolean isProcessed(TransactionRequest request, Buy buy) {
         boolean isProcessed = buy.paymentAttempt(request);
 
         if (isProcessed) {
@@ -33,10 +32,10 @@ public class ProcessPayment {
 
             emailService.sendEmailSuccess(buy);
 
-            return ResponseEntity.ok().build();
+            return true;
         }
 
         emailService.sendEmailError(buy);
-        return ResponseEntity.badRequest().build();
+        return false;
     }
 }
