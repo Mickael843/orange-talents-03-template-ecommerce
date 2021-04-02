@@ -20,7 +20,7 @@ class UserControllerTest extends IntegrationHelper {
     private static final String ENDPOINT = "/users";
 
     @Test
-    @DisplayName("Ao fornecer um json valido deve retornar status code 200")
+    @DisplayName("Ao fornecer um json de usuário valido deve retornar status code 200")
     void GIVEN_ValidPayload_MUST_ReturnOK() throws Exception {
         var login = faker.pokemon().name() + "@gmail.com";
         var password = "123456789";
@@ -37,7 +37,7 @@ class UserControllerTest extends IntegrationHelper {
 
     @ParameterizedTest
     @MethodSource("provideInvalidData")
-    @DisplayName("Ao fornecer um json invalido deve retornar status code 400")
+    @DisplayName("Ao fornecer um json de usuário invalido deve retornar status code 400")
     void GIVEN_InvalidPayload_MUST_ReturnBadRequest(String login, String password) throws Exception {
         JSONObject payload = new JSONObject()
                 .put("login", login)

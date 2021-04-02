@@ -45,8 +45,6 @@ public class ProductController {
 
         Product product = productRepository.save(productRequest.toModel(categoryRepository));
 
-        // TODO Salvar as características no banco de dados pelo objeto produto
-
          characteristicRepository.saveAll(
                 characteristicList.stream()
                         .map(characteristicRequest -> new Characteristic(characteristicRequest.getName(), characteristicRequest.getDescription(), product))

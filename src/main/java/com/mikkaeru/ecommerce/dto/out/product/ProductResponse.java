@@ -18,8 +18,8 @@ public class ProductResponse {
     private final String name;
     private final BigDecimal price;
     private final String description;
-    private final int totalRating;
-    private final double averageRating;
+    private int totalRating;
+    private double averageRating;
     private final Integer availableQuantity;
     private final List<OpinionResponse> opinions;
     private final List<QuestionResponse> questions;
@@ -31,8 +31,11 @@ public class ProductResponse {
         this.price = product.getPrice();
         this.description = product.getDescription();
         this.availableQuantity = product.getAvailableQuantity();
-        this.averageRating = opinionRepository.getAverageRating(product.getId());
-        this.totalRating = opinionRepository.getTotalRating(product.getId());
+
+        if (product.haveOpinions()) {
+            this.averageRating = opinionRepository.getAverageRating(product.getId());
+            this.totalRating = opinionRepository.getTotalRating(product.getId());
+        }
 
         this.images = product.mapImages();
         this.opinions = product.mapOpinions();

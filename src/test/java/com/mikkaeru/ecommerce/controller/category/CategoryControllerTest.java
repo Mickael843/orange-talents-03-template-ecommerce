@@ -26,7 +26,7 @@ class CategoryControllerTest extends IntegrationHelper {
     }
 
     @Test
-    @DisplayName("Dado um json valido deve retornar status code 200")
+    @DisplayName("Dado um json de categoria valido deve retornar status code 200")
     void GIVEN_ValidPayload_MUST_ReturnOK() throws Exception {
         var name = faker.pokemon().name();
         long motherCategoryId = 1;
@@ -42,7 +42,7 @@ class CategoryControllerTest extends IntegrationHelper {
 
     @ParameterizedTest
     @MethodSource("provideInvalidData")
-    @DisplayName("Dado um json invalido deve retornar status code 400")
+    @DisplayName("Dado um json de categoria invalido deve retornar status code 400")
     void GIVEN_ValidPayload_MUST_ReturnBadRequest(String name) throws Exception {
         JSONObject payload = new JSONObject().put("name", name);
 

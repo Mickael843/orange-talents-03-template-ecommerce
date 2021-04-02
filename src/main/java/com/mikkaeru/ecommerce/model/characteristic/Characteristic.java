@@ -30,6 +30,11 @@ public class Characteristic {
         this.product = product;
     }
 
+    public Characteristic(String name, String description) {
+        this.name = name;
+        this.description = description;
+    }
+
     public String getName() {
         return name;
     }

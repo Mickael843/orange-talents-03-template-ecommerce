@@ -51,7 +51,7 @@ public abstract class IntegrationHelper extends TestHelper {
         headers.add("Authorization", "Bearer " + authorization);
     }
 
-    protected String provideData(String pathName, String jsonObjectName) {
+    protected String provideDataFile(String pathName, String jsonObjectName) {
         JsonValue payload = null;
 
         File jsonInputFile = new File(pathName);

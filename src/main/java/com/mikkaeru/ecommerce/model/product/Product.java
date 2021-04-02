@@ -57,7 +57,8 @@ public class Product {
     public Product() { }
 
     public Product(@NotBlank String name, @NotNull @Positive BigDecimal price,
-                   @NotBlank @PositiveOrZero int availableQuantity, @NotBlank @Length(max = 1000) String description, Category category , @NotNull User owner) {
+                   @NotBlank @PositiveOrZero int availableQuantity, @NotBlank @Length(max = 1000) String description,
+                   Category category, @NotNull User owner) {
         this.name = name;
         this.price = price;
         this.availableQuantity = availableQuantity;
@@ -121,5 +122,9 @@ public class Product {
 
     public void sendEmailProductOwner(EmailService emailService) {
         emailService.sendEmail(owner);
+    }
+
+    public boolean haveOpinions() {
+        return opinions.size() >= 1;
     }
 }
