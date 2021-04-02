@@ -36,7 +36,6 @@ public class ProductController {
         this.characteristicRepository = characteristicRepository;
     }
 
-
     @PostMapping
     @Transactional
     public ResponseEntity<?> createProduct(@RequestBody @Valid ProductRequest productRequest, @AuthenticationPrincipal User user) {
@@ -45,6 +44,8 @@ public class ProductController {
         List<CharacteristicRequest> characteristicList = productRequest.getCharacteristics();
 
         Product product = productRepository.save(productRequest.toModel(categoryRepository));
+
+        // TODO Salvar as características no banco de dados pelo objeto produto
 
          characteristicRepository.saveAll(
                 characteristicList.stream()

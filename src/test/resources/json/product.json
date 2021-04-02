@@ -1,0 +1,23 @@
+{
+  "product": {
+    "name": "celular",
+    "price": 5777.8,
+    "availableQuantity": 10,
+    "description": "Ta novinho, até parece que comprei ontem",
+    "categoryId": 1,
+    "characteristics": [
+      {
+        "name": "novinho",
+        "description": "vale a pena em bb"
+      },
+      {
+        "name": "novinho",
+        "description": "vale a pena em bb"
+      },
+      {
+        "name": "vermelho",
+        "description": "Só bora te testar criança"
+      }
+    ]
+  }
+}

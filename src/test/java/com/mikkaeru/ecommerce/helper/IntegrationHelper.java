@@ -7,6 +7,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.servlet.MockMvc;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -40,5 +49,28 @@ public abstract class IntegrationHelper extends TestHelper {
                 .replace("}", "");;
 
         headers.add("Authorization", "Bearer " + authorization);
+    }
+
+    protected String provideData(String pathName, String jsonObjectName) {
+        JsonValue payload = null;
+
+        File jsonInputFile = new File(pathName);
+        InputStream inputStream;
+
+        try {
+            inputStream = new FileInputStream(jsonInputFile);
+
+            JsonReader reader = Json.createReader(inputStream);
+            JsonObject jsonObject = reader.readObject();
+
+            reader.close();
+
+            payload = jsonObject.get(jsonObjectName);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        assert payload != null;
+        return payload.toString();
     }
 }
