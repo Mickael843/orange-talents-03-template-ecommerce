@@ -124,7 +124,7 @@ public class Product {
         emailService.sendEmail(owner);
     }
 
-    public boolean haveOpinions() {
-        return opinions.size() >= 1;
+    public boolean canCalculate() {
+        return opinions.size() > 1;
     }
 }

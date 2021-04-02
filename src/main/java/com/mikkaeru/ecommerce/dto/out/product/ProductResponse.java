@@ -32,7 +32,7 @@ public class ProductResponse {
         this.description = product.getDescription();
         this.availableQuantity = product.getAvailableQuantity();
 
-        if (product.haveOpinions()) {
+        if (product.canCalculate()) {
             this.averageRating = opinionRepository.getAverageRating(product.getId());
             this.totalRating = opinionRepository.getTotalRating(product.getId());
         }
