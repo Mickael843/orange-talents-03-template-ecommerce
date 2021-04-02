@@ -18,7 +18,7 @@ public abstract class IntegrationHelper extends TestHelper {
     @Autowired
     protected MockMvc mockMvc;
 
-    private final HttpHeaders headers = new HttpHeaders();
+    protected HttpHeaders headers = new HttpHeaders();
 
     protected void addHeaders() throws Exception {
         JSONObject payload = new JSONObject();
@@ -34,6 +34,11 @@ public abstract class IntegrationHelper extends TestHelper {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        headers.add("Authorization", result.getResponse().getHeader("Authorization"));
+        String authorization = result.getResponse().getContentAsString()
+                .split(":")[2]
+                .replace("\"", "")
+                .replace("}", "");;
+
+        headers.add("Authorization", "Bearer " + authorization);
     }
 }
