@@ -10,6 +10,7 @@ import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
 import com.mikkaeru.ecommerce.model.product.question.Question;
 import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.service.EmailService;
+import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -51,9 +52,12 @@ public class Product {
     private List<Question> questions = new ArrayList<>();
     @OneToMany(mappedBy = "product")
     private List<Characteristic> characteristics = new ArrayList<>();
+    @CreationTimestamp
     private OffsetDateTime createAt = OffsetDateTime.now();
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Product() { }
 
     public Product(@NotBlank String name, @NotNull @Positive BigDecimal price,

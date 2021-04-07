@@ -4,7 +4,7 @@ import com.mikkaeru.ecommerce.dto.in.buy.TransactionPagseguroRequest;
 import com.mikkaeru.ecommerce.dto.in.buy.TransactionPaypalRequest;
 import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
-import com.mikkaeru.ecommerce.model.buy.TransactionRequest;
+import com.mikkaeru.ecommerce.dto.in.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
 import com.mikkaeru.ecommerce.service.ProcessPayment;
 import org.springframework.http.ResponseEntity;

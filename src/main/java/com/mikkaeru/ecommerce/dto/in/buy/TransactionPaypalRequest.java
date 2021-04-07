@@ -2,7 +2,6 @@ package com.mikkaeru.ecommerce.dto.in.buy;
 
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.buy.Transaction;
-import com.mikkaeru.ecommerce.model.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.model.buy.TransactionStatus;
 
 import javax.validation.constraints.NotBlank;

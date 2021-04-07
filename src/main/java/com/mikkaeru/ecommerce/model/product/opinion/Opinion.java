@@ -28,7 +28,9 @@ public class Opinion {
     @ManyToOne(optional = false)
     private User user;
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Opinion() { }
 
     public Opinion(@Min(1) @Max(5) int rating, @NotBlank String title,

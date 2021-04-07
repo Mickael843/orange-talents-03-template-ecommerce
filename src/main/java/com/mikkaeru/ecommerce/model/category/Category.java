@@ -23,7 +23,9 @@ public class Category {
     @OneToMany(mappedBy = "category", cascade = MERGE)
     private List<Product> products = new ArrayList<>();
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Category() { }
 
     public Category(@NotBlank String name) {

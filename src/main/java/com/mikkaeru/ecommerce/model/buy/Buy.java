@@ -1,5 +1,6 @@
 package com.mikkaeru.ecommerce.model.buy;
 
+import com.mikkaeru.ecommerce.dto.in.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.model.product.Product;
 import com.mikkaeru.ecommerce.model.user.User;
 
@@ -40,7 +41,9 @@ public class Buy {
     @OneToMany(mappedBy = "buy", cascade = MERGE)
     private Set<Transaction> transactions = new HashSet<>();
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Buy() { }
 
     public Buy(Product product, BigDecimal price, int amount, User loggedUser, PaymentGateway gateway) {

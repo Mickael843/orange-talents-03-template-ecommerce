@@ -2,7 +2,7 @@ package com.mikkaeru.ecommerce.service;
 
 import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
-import com.mikkaeru.ecommerce.model.buy.TransactionRequest;
+import com.mikkaeru.ecommerce.dto.in.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
 import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
 import org.springframework.stereotype.Service;

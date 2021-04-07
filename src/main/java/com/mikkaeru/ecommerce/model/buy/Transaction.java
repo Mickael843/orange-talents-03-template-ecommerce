@@ -24,7 +24,6 @@ public class Transaction {
     @Enumerated(STRING)
     @Column(nullable = false)
     private TransactionStatus status;
-
     @PastOrPresent
     @CreationTimestamp
     private OffsetDateTime createAt = OffsetDateTime.now();

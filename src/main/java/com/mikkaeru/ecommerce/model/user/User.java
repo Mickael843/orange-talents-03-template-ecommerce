@@ -1,9 +1,9 @@
 package com.mikkaeru.ecommerce.model.user;
 
 import com.mikkaeru.ecommerce.model.product.Product;
+import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.Valid;
@@ -15,8 +15,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.GenerationType.IDENTITY;
-import static org.springframework.util.Assert.isTrue;
-import static org.springframework.util.Assert.notNull;
 
 @Entity(name = "tb_user")
 public class User implements UserDetails {
@@ -28,18 +26,17 @@ public class User implements UserDetails {
     private String login;
     @Column(nullable = false)
     private String password;
-    @Column(nullable = false)
+    @CreationTimestamp
     private OffsetDateTime createAt = OffsetDateTime.now();
     @OneToMany(mappedBy = "owner")
     private List<Product> products = new ArrayList<>();
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public User() { }
 
     public User(@NotBlank @Email String login, @Valid CleanPassword cleanPassword) {
-        isTrue(StringUtils.hasLength(login), "Login não pode ser nulo!");
-        notNull(cleanPassword, "A senha não pode ser nula!");
-
         this.login = login;
         this.password = cleanPassword.hash();
     }

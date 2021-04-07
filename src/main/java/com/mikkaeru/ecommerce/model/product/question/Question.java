@@ -2,6 +2,7 @@ package com.mikkaeru.ecommerce.model.product.question;
 
 import com.mikkaeru.ecommerce.model.product.Product;
 import com.mikkaeru.ecommerce.model.user.User;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -21,9 +22,12 @@ public class Question {
     private User loggedUser;
     @ManyToOne(optional = false)
     private Product product;
+    @CreationTimestamp
     private OffsetDateTime createAt = OffsetDateTime.now();
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Question() { }
 
     public Question(@NotBlank String title, User loggedUser, Product product) {

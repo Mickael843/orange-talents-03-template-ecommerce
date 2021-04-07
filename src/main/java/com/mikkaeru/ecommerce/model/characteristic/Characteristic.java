@@ -21,18 +21,15 @@ public class Characteristic {
     @ManyToOne(optional = false)
     private Product product;
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public Characteristic() { }
 
     public Characteristic(@NotBlank String name, @NotBlank String description, @NotNull Product product) {
         this.name = name;
         this.description = description;
         this.product = product;
-    }
-
-    public Characteristic(String name, String description) {
-        this.name = name;
-        this.description = description;
     }
 
     public String getName() {

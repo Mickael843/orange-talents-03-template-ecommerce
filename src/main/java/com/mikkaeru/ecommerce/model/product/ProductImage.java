@@ -15,7 +15,9 @@ public class ProductImage {
     @ManyToOne(optional = false)
     private Product product;
 
-    @Deprecated
+    /**
+     * @deprecated hibernate only
+     */
     public ProductImage() { }
 
     public ProductImage(String link, Product product) {
