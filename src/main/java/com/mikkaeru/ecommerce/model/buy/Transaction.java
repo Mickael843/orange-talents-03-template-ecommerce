@@ -1,6 +1,9 @@
 package com.mikkaeru.ecommerce.model.buy;
 
+import org.hibernate.annotations.CreationTimestamp;
+
 import javax.persistence.*;
+import javax.validation.constraints.PastOrPresent;
 import java.time.OffsetDateTime;
 import java.util.Objects;
 
@@ -21,18 +24,20 @@ public class Transaction {
     @Enumerated(STRING)
     @Column(nullable = false)
     private TransactionStatus status;
-    @Column(nullable = false)
-    private OffsetDateTime createAt;
 
-    @Deprecated
-    public Transaction() {
-    }
+    @PastOrPresent
+    @CreationTimestamp
+    private OffsetDateTime createAt = OffsetDateTime.now();
+
+    /**
+     * @deprecated hibernate only
+     */
+    public Transaction() { }
 
     public Transaction(Buy buy, TransactionStatus status, String transactionId) {
         this.buy = buy;
         this.status = status;
         this.transactionId = transactionId;
-        this.createAt =  OffsetDateTime.now();
     }
 
     @Override

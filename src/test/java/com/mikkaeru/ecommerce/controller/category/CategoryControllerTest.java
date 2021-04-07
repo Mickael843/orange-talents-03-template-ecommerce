@@ -43,7 +43,7 @@ class CategoryControllerTest extends IntegrationHelper {
     @ParameterizedTest
     @MethodSource("provideInvalidData")
     @DisplayName("Dado um json de categoria invalido deve retornar status code 400")
-    void GIVEN_ValidPayload_MUST_ReturnBadRequest(String name) throws Exception {
+    void GIVEN_InvalidPayload_MUST_ReturnBadRequest(String name) throws Exception {
         JSONObject payload = new JSONObject().put("name", name);
 
         mockMvc.perform(post(ENDPOINT)
@@ -55,8 +55,7 @@ class CategoryControllerTest extends IntegrationHelper {
 
     private static Stream<Arguments> provideInvalidData() {
         return Stream.of(
-                arguments(" "),
-                arguments("eletrodomésticos")
+                arguments(" ")
         );
     }
 }

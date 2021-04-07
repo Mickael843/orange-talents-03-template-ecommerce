@@ -1,12 +1,28 @@
 version: '3.1'
 
 services:
-  db:
-    image: mysql:latest
-    ports:
-      - "3306:3306"
-    command: >
-      --default-authentication-plugin=mysql_native_password
-    environment:
-      - MYSQL_ROOT_PASSWORD=admin
-      - MYSQL_DATABASE=ecommerce
+    db:
+        image: mysql:latest
+        ports:
+            - "3306:3306"
+        command: >
+            --default-authentication-plugin=mysql_native_password
+        environment:
+            - MYSQL_ROOT_PASSWORD=admin
+            - MYSQL_DATABASE=ecommerce
+    ecommerce:
+        build:
+            dockerfile: ./Dockerfile
+            context: .
+        image: mikkaeru/ecommerce
+        container_name: ecommerce
+        environment:
+            - PORT=8080
+            - SPRING_PROFILES_ACTIVE=prod
+        ports:
+            - "8080:8080"
+        depends_on:
+            - db
+networks:
+  default:
+    driver: bridge

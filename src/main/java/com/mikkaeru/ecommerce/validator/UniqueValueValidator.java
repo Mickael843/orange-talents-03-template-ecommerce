@@ -1,7 +1,6 @@
 package com.mikkaeru.ecommerce.validator;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.List;
@@ -25,9 +24,9 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, Ob
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext constraintValidatorContext) {
-        Query query = entityManager.createQuery("SELECT 1 FROM " + clazz.getName() + " WHERE " +domainAttribute+ "=:value");
-        query.setParameter("value", value);
-        List<?> list = query.getResultList();
+        List<?> list = entityManager.createQuery(
+                "SELECT 1 FROM "+clazz.getName()+ " WHERE UPPER("+domainAttribute+")=:value")
+                .setParameter("value", value.toString().toUpperCase()).getResultList();
 
         return list.isEmpty();
     }
