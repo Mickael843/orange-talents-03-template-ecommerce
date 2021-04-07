@@ -7,8 +7,9 @@ import com.mikkaeru.ecommerce.model.product.Product;
 import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
 import com.mikkaeru.ecommerce.repository.product.ProductRepository;
-import com.mikkaeru.ecommerce.service.EmailService;
-import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
+import com.mikkaeru.ecommerce.utils.email.SendEmail;
+import com.mikkaeru.ecommerce.fake.SendEmailFake;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindException;
@@ -26,14 +27,14 @@ import java.util.Optional;
 @RequestMapping("/buy")
 public class BuyController {
 
-    private final EmailService emailService;
+    private final SendEmail sendEmail;
     private final BuyRepository buyRepository;
     private final ProductRepository productRepository;
 
     public BuyController(BuyRepository buyRepository, ProductRepository productRepository) {
         this.buyRepository = buyRepository;
         this.productRepository = productRepository;
-        this.emailService = new EmailServiceFakeImpl();
+        this.sendEmail = new SendEmailFake();
     }
 
     @PostMapping
@@ -55,13 +56,13 @@ public class BuyController {
 
             newBuy = buyRepository.save(newBuy);
 
-            product.get().sendEmailProductOwner(emailService);
+            product.get().sendEmailProductOwner(sendEmail);
 
             return ResponseEntity.ok(gateway.generateUrl(builder, newBuy));
         }
 
         BindException stockProblem = new BindException(request, "request");
-        stockProblem.reject(null, "Não foi possível realizar a compra do produto!");
+        stockProblem.reject(HttpStatus.BAD_REQUEST.toString(), "Não foi possível realizar a compra do produto!");
         throw stockProblem;
     }
 }

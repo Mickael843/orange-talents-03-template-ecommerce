@@ -9,7 +9,7 @@ import com.mikkaeru.ecommerce.model.characteristic.Characteristic;
 import com.mikkaeru.ecommerce.model.product.opinion.Opinion;
 import com.mikkaeru.ecommerce.model.product.question.Question;
 import com.mikkaeru.ecommerce.model.user.User;
-import com.mikkaeru.ecommerce.service.EmailService;
+import com.mikkaeru.ecommerce.utils.email.SendEmail;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.validator.constraints.Length;
 
@@ -124,8 +124,8 @@ public class Product {
         return false;
     }
 
-    public void sendEmailProductOwner(EmailService emailService) {
-        emailService.sendEmail(owner);
+    public void sendEmailProductOwner(SendEmail sendEmail) {
+        sendEmail.sendEmail(owner);
     }
 
     public boolean canCalculate() {

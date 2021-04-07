@@ -1,14 +1,14 @@
-package com.mikkaeru.ecommerce.service;
+package com.mikkaeru.ecommerce.utils.process;
 
 import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Map;
 
-@Service
-public class RankingService implements BuyEvent {
+@Component
+public class ProcessRanking implements BuyEvent {
 
     private static final String URL = "http://localhost:8080/api/fake/ranking";
 

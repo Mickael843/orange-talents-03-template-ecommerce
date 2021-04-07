@@ -1,10 +1,10 @@
-package com.mikkaeru.ecommerce.service.impl;
+package com.mikkaeru.ecommerce.fake;
 
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.user.User;
-import com.mikkaeru.ecommerce.service.EmailService;
+import com.mikkaeru.ecommerce.utils.email.SendEmail;
 
-public class EmailServiceFakeImpl implements EmailService {
+public class SendEmailFake implements SendEmail {
 
     @Override
     public void sendEmail(User productOwner) {

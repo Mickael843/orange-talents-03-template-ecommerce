@@ -6,7 +6,7 @@ import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.dto.in.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
-import com.mikkaeru.ecommerce.service.ProcessPayment;
+import com.mikkaeru.ecommerce.utils.process.ProcessPayment;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;

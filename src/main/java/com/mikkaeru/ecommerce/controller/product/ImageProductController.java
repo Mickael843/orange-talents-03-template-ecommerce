@@ -6,8 +6,8 @@ import com.mikkaeru.ecommerce.model.product.ProductImage;
 import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.repository.product.ProductImageRepository;
 import com.mikkaeru.ecommerce.repository.product.ProductRepository;
-import com.mikkaeru.ecommerce.service.ImageService;
-import com.mikkaeru.ecommerce.service.impl.ImageServiceFakeImpl;
+import com.mikkaeru.ecommerce.utils.image.UploadImage;
+import com.mikkaeru.ecommerce.fake.UploadImageFake;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,12 +28,12 @@ import static org.springframework.http.HttpStatus.FORBIDDEN;
 @RequestMapping("/products/{id}")
 public class ImageProductController {
 
-    private final ImageService imageService;
+    private final UploadImage uploadImage;
     private final ProductRepository productRepository;
     private final ProductImageRepository imageRepository;
 
     public ImageProductController(ProductRepository productRepository, ProductImageRepository imageRepository) {
-        this.imageService = new ImageServiceFakeImpl();
+        this.uploadImage = new UploadImageFake();
         this.productRepository = productRepository;
         this.imageRepository = imageRepository;
     }
@@ -51,7 +51,7 @@ public class ImageProductController {
             throw new ResponseStatusException(FORBIDDEN);
         }
 
-        List<String> links = imageService.sendImages(imageRequest.getImages());
+        List<String> links = uploadImage.sendImages(imageRequest.getImages());
 
         List<ProductImage> productImages = links.stream().map(link -> new ProductImage(link, product.get())).collect(Collectors.toList());
 

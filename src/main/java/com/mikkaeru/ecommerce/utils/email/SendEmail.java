@@ -1,9 +1,9 @@
-package com.mikkaeru.ecommerce.service;
+package com.mikkaeru.ecommerce.utils.email;
 
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.model.user.User;
 
-public interface EmailService {
+public interface SendEmail {
 
     void sendEmail(User productOwner);
     void sendEmailSuccess(Buy buy);

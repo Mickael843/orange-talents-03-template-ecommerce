@@ -4,8 +4,8 @@ import com.mikkaeru.ecommerce.dto.in.product.question.QuestionRequest;
 import com.mikkaeru.ecommerce.model.user.User;
 import com.mikkaeru.ecommerce.repository.product.ProductRepository;
 import com.mikkaeru.ecommerce.repository.product.question.QuestionRepository;
-import com.mikkaeru.ecommerce.service.EmailService;
-import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
+import com.mikkaeru.ecommerce.utils.email.SendEmail;
+import com.mikkaeru.ecommerce.fake.SendEmailFake;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
@@ -17,12 +17,12 @@ import javax.validation.Valid;
 @RequestMapping("/products/{id}/questions")
 public class QuestionController {
 
-    private final EmailService emailService;
+    private final SendEmail sendEmail;
     private final ProductRepository productRepository;
     private final QuestionRepository questionRepository;
 
     public QuestionController(ProductRepository productRepository, QuestionRepository questionRepository) {
-        this.emailService = new EmailServiceFakeImpl();
+        this.sendEmail = new SendEmailFake();
         this.productRepository = productRepository;
         this.questionRepository = questionRepository;
     }
@@ -33,7 +33,7 @@ public class QuestionController {
         questionRequest.setProductId(id);
         questionRequest.setLoggedUser(user);
         questionRepository.save(questionRequest.toModel(productRepository));
-        emailService.sendEmail(questionRequest.getProductOwner());
+        sendEmail.sendEmail(questionRequest.getProductOwner());
         return ResponseEntity.ok().build();
     }
 }

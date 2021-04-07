@@ -1,10 +1,11 @@
-package com.mikkaeru.ecommerce.service;
+package com.mikkaeru.ecommerce.utils.process;
 
 import com.mikkaeru.ecommerce.listener.BuyEvent;
 import com.mikkaeru.ecommerce.model.buy.Buy;
 import com.mikkaeru.ecommerce.dto.in.buy.TransactionRequest;
 import com.mikkaeru.ecommerce.repository.buy.BuyRepository;
-import com.mikkaeru.ecommerce.service.impl.EmailServiceFakeImpl;
+import com.mikkaeru.ecommerce.fake.SendEmailFake;
+import com.mikkaeru.ecommerce.utils.email.SendEmail;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
@@ -13,13 +14,13 @@ import java.util.Set;
 public class ProcessPayment {
 
     private final Set<BuyEvent> events;
-    private final EmailService emailService;
+    private final SendEmail sendEmail;
     private final BuyRepository buyRepository;
 
     public ProcessPayment(BuyRepository buyRepository, Set<BuyEvent> events) {
         this.events = events;
         this.buyRepository = buyRepository;
-        this.emailService = new EmailServiceFakeImpl();
+        this.sendEmail = new SendEmailFake();
     }
 
     public boolean isProcessed(TransactionRequest request, Buy buy) {
@@ -30,12 +31,12 @@ public class ProcessPayment {
 
             events.forEach(events -> events.processes(buy));
 
-            emailService.sendEmailSuccess(buy);
+            sendEmail.sendEmailSuccess(buy);
 
             return true;
         }
 
-        emailService.sendEmailError(buy);
+        sendEmail.sendEmailError(buy);
         return false;
     }
 }
